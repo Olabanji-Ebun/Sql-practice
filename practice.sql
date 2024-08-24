@@ -58,5 +58,68 @@ SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OrderNumber'
 SELECT  SalesOrderNumber, OrderDate, Status, SubTotal FROM Sales.SalesOrderHeader WHERE OrderDate = '2001-07-01' AND SubTotal > 10000
 
 --EXERCISE 16
-SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OnlineOrderFlag'
-SELECT * FROM Sales.SalesOrderHeader
+SELECT sals.CustomerID, per.ContactID,  per.FirstName, per.LastName, cus.OnlineOrderFlag FROM Person.Contact per JOIN Sales.Individual sals
+ON per.ContactID = sals.ContactID
+JOIN Sales.SalesOrderHeader cus
+ON sals.CustomerID = cus.CustomerID
+WHERE OnlineOrderFlag = 1 
+ORDER BY CustomerID
+
+--EXERCISE 17
+SELECT ord.OrderQty, hed.TotalDue FROM Sales.SalesOrderDetail ord JOIN Sales.SalesOrderHeader hed
+ON ord.SalesOrderID = hed.SalesOrderID
+
+--EXERCISE 18
+SELECT SalesOrderID, TaxAmt FROM Sales.SalesOrderHeader WHERE TaxAmt < 2000 ORDER BY TaxAmt asc
+
+--EXERCISE 19
+SELECT SalesOrderID, SUM(LineTotal) AS TotalValue FROM Sales.SalesOrderDetail GROUP BY SalesOrderID ORDER BY SUM(LineTotal) asc
+
+--EXERCISE 20
+SELECT * FROM Sales.Currency WHERE Name like '%Dollar'
+
+--EXERCISE 21
+SELECT * FROM Sales.SalesTerritory WHERE Name like 'N%'
+
+--EXERCISE 22
+SELECT SalesPersonID, TerritoryID, SalesQuota FROM Sales.SalesPerson WHERE SalesQuota IS NOT NULL
+
+--EXERCISE 23
+SELECT TOP 3 Bonus, SalesPersonID  FROM Sales.SalesPerson
+
+--EXERCISE 24
+SELECT * FROM Sales.Store WHERE Name like '%Bike%'
+
+--EXERCISE 25
+SELECT CardType FROM Sales.CreditCard
+
+--EXERCISE 26
+SELECT EmployeeID, LoginID, Title FROM HumanResources.Employee ORDER BY EmployeeID OFFSET 5 ROWS FETCH NEXT 10 ROWS ONLY
+
+--EXERCISE 27
+SELECT MAX(OrderQty) AS Maximum, MIN(OrderQty) AS Minimum, AVG(OrderQty) AS Average FROM Sales.SalesOrderDetail 
+
+--EXERCISE 28
+SELECT SUM(OrderQty) AS SUM FROM Sales.SalesOrderDetail 
+
+--EXERCISE 29
+SELECT TOP 5 SalesOrderID, TotalDue FROM Sales.SalesOrderHeader WHERE YEAR(OrderDate) = 2001 ORDER BY TotalDue desc;
+
+--EXERCISE 30
+SELECT SalesOrderID, SUM(LineTotal) AS TotalValue FROM Sales.SalesOrderDetail GROUP BY SalesOrderID 
+
+--EXERCISE 31
+SELECT ProductID, LineTotal FROM Sales.SalesOrderDetail WHERE LineTotal > 10000
+
+--EXERCISE 32
+SELECT ProductID, SUM(LineTotal) AS Total FROM Sales.SalesOrderDetail GROUP BY ROLLUP (ProductID)
+
+--EXERCISE 33
+SELECT SUM(OrderQty)As OrderValue, OrderDate FROM Sales.SalesOrderHeader soh JOIN Sales.SalesOrderDetail sod
+ON soh.SalesOrderID = sod.SalesOrderID
+GROUP BY OrderDate
+
+--EXERCISE 34
+SELECT SUM(UnitPrice)AS TotalUnitPrice, SUM(LineTotal)AS TotalAmountCollected  FROM Sales.SalesOrderDetail WHERE ProductID IN (774, 777) GROUP BY ProductID
+--Amount collected from both product id's
+SELECT SUM(LineTotal)AS TotalAmountTogether  FROM Sales.SalesOrderDetail WHERE ProductID IN (774, 777) 
