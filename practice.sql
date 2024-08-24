@@ -57,3 +57,6 @@ SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OrderNumber'
 
 SELECT  SalesOrderNumber, OrderDate, Status, SubTotal FROM Sales.SalesOrderHeader WHERE OrderDate = '2001-07-01' AND SubTotal > 10000
 
+--EXERCISE 16
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OnlineOrderFlag'
+SELECT * FROM Sales.SalesOrderHeader
