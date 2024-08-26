@@ -123,3 +123,25 @@ GROUP BY OrderDate
 SELECT SUM(UnitPrice)AS TotalUnitPrice, SUM(LineTotal)AS TotalAmountCollected  FROM Sales.SalesOrderDetail WHERE ProductID IN (774, 777) GROUP BY ProductID
 --Amount collected from both product id's
 SELECT SUM(LineTotal)AS TotalAmountTogether  FROM Sales.SalesOrderDetail WHERE ProductID IN (774, 777) 
+
+--EXERCISE 35
+--Not Clear
+
+--EXERCISE 36
+SELECT SalesOrderID, AVG(LineTotal) As TotalAmount FROM Sales.SalesOrderDetail WHERE LineTotal < 5000  GROUP BY SalesOrderID 
+
+--EXERCISE 37
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'SalesPersonID'
+SELECT CustomerID, LEFT(Name, 15)AS First15, SalesPersonID FROM Sales.Store
+
+--EXERCISE 38
+SELECT SalesOrderID, TotalDue, DATENAME(WEEKDAY, OrderDate)As WeekDay, DATENAME(DAY, OrderDate) As DayOfOrder  FROM Sales.SalesOrderHeader
+
+--EXERCISE 39
+SELECT SalesOrderID, OrderQty, UnitPrice,  DENSE_RANK() OVER (ORDER BY UnitPrice) AS Identical FROM Sales.SalesOrderDetail 
+
+--EXERCISE 40
+SELECT EmployeeID, HireDate, DATENAME(MONTH, HireDate)As Month, DATENAME(YEAR, HireDate)As Year FROM HumanResources.Employee
+
+--EXERCISE 41
+SELECT CostRate, LocationID,  NTILE(3) OVER (ORDER BY LocationID ) AS Grouped FROM Production.Location WHERE CostRate > 12 ORDER BY CostRate desc
