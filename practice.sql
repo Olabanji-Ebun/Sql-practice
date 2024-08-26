@@ -4,7 +4,7 @@ SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'CustomerID'
 SELECT * FROM Sales.Customer
 
 --Exercise 2
-SELECT CreditCardID, CardType, CardNumber, ExpYear FROM Sales.CreditCard
+SELECT CreditCardID AS 'Credit Card ID', CardType AS 'Credit Card Type', CardNumber AS 'Card Number', ExpYear AS 'Expiry Year' FROM Sales.CreditCard
 
 --EXERCISE 3
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'TerritoryID'
@@ -16,14 +16,14 @@ SELECT * FROM Sales.SalesOrderDetail WHERE LineTotal > 2000
 
 --EXERCISE 5
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'ProductID'
-SELECT * FROM Production.Product WHERE ProductID = 843 AND Name = 'Cable Lock'
+SELECT * FROM Sales.SalesOrderDetail WHERE ProductID = 843 
 
 --EXERCISE 6 
 SELECT * FROM Sales.SalesOrderHeader WHERE OrderDate = '2004-06-06'
 
 -- EXERCISE 7
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OrderQty'
-SELECT SalesOrderID, OrderQty, UnitPrice, LineTotal FROM Sales.SalesOrderDetail
+SELECT SalesOrderID AS 'Order ID', OrderQty AS 'Order Quantity', UnitPrice AS 'Unit Price', LineTotal AS 'Total Cost' FROM Sales.SalesOrderDetail
 
 --EXERCISE 8
 SELECT LineTotal FROM Sales.SalesOrderDetail WHERE LineTotal > 2000 AND LineTotal < 2100
@@ -42,7 +42,7 @@ SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'SalesPersonID'
 UNION
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'TerritoryID'
 
-SELECT SalesPersonID, TerritoryID FROM Sales.SalesOrderHeader WHERE TerritoryID IN (2, 4)
+SELECT SalesPersonID AS 'Sales Person ID', TerritoryID AS 'Territory ID' FROM Sales.SalesOrderHeader WHERE TerritoryID IN (2, 4)
 
 --EXERCISE 13
 SELECT * FROM Sales.CreditCard WHERE CardType = 'Vista' AND ExpYear = 2006
@@ -55,7 +55,7 @@ SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'Status'
 UNION
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'OrderNumber'
 
-SELECT  SalesOrderNumber, OrderDate, Status, SubTotal FROM Sales.SalesOrderHeader WHERE OrderDate = '2001-07-01' AND SubTotal > 10000
+SELECT  SalesOrderNumber AS 'Order Number', OrderDate AS 'Order Date', Status AS 'Status', SubTotal AS 'Total Cost' FROM Sales.SalesOrderHeader WHERE OrderDate = '2001-07-01' AND SubTotal > 10000
 
 --EXERCISE 16
 SELECT sals.CustomerID, per.ContactID,  per.FirstName, per.LastName, cus.OnlineOrderFlag FROM Person.Contact per JOIN Sales.Individual sals
@@ -66,7 +66,7 @@ WHERE OnlineOrderFlag = 1
 ORDER BY CustomerID
 
 --EXERCISE 17
-SELECT ord.OrderQty, hed.TotalDue FROM Sales.SalesOrderDetail ord JOIN Sales.SalesOrderHeader hed
+SELECT ord.OrderQty AS 'Order ID', hed.TotalDue AS 'Total Due' FROM Sales.SalesOrderDetail ord JOIN Sales.SalesOrderHeader hed
 ON ord.SalesOrderID = hed.SalesOrderID
 
 --EXERCISE 18
@@ -82,7 +82,7 @@ SELECT * FROM Sales.Currency WHERE Name like '%Dollar'
 SELECT * FROM Sales.SalesTerritory WHERE Name like 'N%'
 
 --EXERCISE 22
-SELECT SalesPersonID, TerritoryID, SalesQuota FROM Sales.SalesPerson WHERE SalesQuota IS NOT NULL
+SELECT SalesPersonID AS 'Sales Person ID', TerritoryID AS 'Territory ID', SalesQuota AS 'Sales Quota' FROM Sales.SalesPerson WHERE SalesQuota IS NOT NULL
 
 --EXERCISE 23
 SELECT TOP 3 Bonus, SalesPersonID  FROM Sales.SalesPerson
@@ -128,14 +128,14 @@ SELECT SUM(LineTotal)AS TotalAmountTogether  FROM Sales.SalesOrderDetail WHERE P
 --Not Clear
 
 --EXERCISE 36
-SELECT SalesOrderID, AVG(LineTotal) As TotalAmount FROM Sales.SalesOrderDetail WHERE LineTotal < 5000  GROUP BY SalesOrderID 
+SELECT SalesOrderID AS 'Sales Order ID', AVG(LineTotal) As 'Average Value' FROM Sales.SalesOrderDetail WHERE LineTotal < 5000  GROUP BY SalesOrderID 
 
 --EXERCISE 37
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'SalesPersonID'
 SELECT CustomerID, LEFT(Name, 15)AS First15, SalesPersonID FROM Sales.Store
 
 --EXERCISE 38
-SELECT SalesOrderID, TotalDue, DATENAME(WEEKDAY, OrderDate)As WeekDay, DATENAME(DAY, OrderDate) As DayOfOrder  FROM Sales.SalesOrderHeader
+SELECT SalesOrderID AS 'Order Number', TotalDue AS 'Total Due',  DATENAME(DAY, OrderDate) As 'Day Of Order', DATENAME(WEEKDAY, OrderDate)As 'Week Day'  FROM Sales.SalesOrderHeader
 
 --EXERCISE 39
 SELECT SalesOrderID, OrderQty, UnitPrice,  DENSE_RANK() OVER (ORDER BY UnitPrice) AS Identical FROM Sales.SalesOrderDetail 
@@ -145,3 +145,5 @@ SELECT EmployeeID, HireDate, DATENAME(MONTH, HireDate)As Month, DATENAME(YEAR, H
 
 --EXERCISE 41
 SELECT CostRate, LocationID,  NTILE(3) OVER (ORDER BY LocationID ) AS Grouped FROM Production.Location WHERE CostRate > 12 ORDER BY CostRate desc
+
+
