@@ -146,4 +146,38 @@ SELECT EmployeeID, HireDate, DATENAME(MONTH, HireDate)As Month, DATENAME(YEAR, H
 --EXERCISE 41
 SELECT CostRate, LocationID,  NTILE(3) OVER (ORDER BY LocationID ) AS Grouped FROM Production.Location WHERE CostRate > 12 ORDER BY CostRate desc
 
+--EXERCISE 42
+SELECT 'The list price of ' + Name + ' is' + CAST(ListPrice AS varchar(10))  FROM Production.Product WHERE ListPrice BETWEEN 360.00 AND 490.00 
 
+--EXERCISE 43
+SELECT ProductID, LineTotal AS 'Total' FROM Sales.SalesOrderDetail
+
+--EXERCISE 44
+SELECT SalesPersonID, SUM(SubTotal) AS SUM FROM Sales.SalesOrderHeader GROUP BY ROLLUP(SalesPersonID)
+
+-- EXERCISE 45 Get back too
+SELECT ProductID, StockedQty AS 'Availability of Products' FROM Purchasing.PurchaseOrderDetail
+
+--EXERCISE 46 VERY WRONG I RETURNED YEAR INSTEAD OF PRICE
+SELECT ProductID, YEAR(StartDate) AS 'Previous Year Price', EndDate AS 'Current Year Price' FROM Production.ProductListPriceHistory WHERE ProductID = 715 ORDER BY [Previous Year Price];
+
+--EXERCISE 47
+SELECT ISNULL(FirstName, '') + ' ' +ISNULL(MiddleName, '')+ ' ' + ISNULL(LastName, '') AS 'Person Name' FROM Person.Contact
+
+--EXERCISE 48
+-- SELECT Empid, Ename, Eproject FROM Employee WHERE Empid IN(2,4)
+
+--EXERCISE 49
+--SELECT Sname, Class FROM StudentDetail WHERE Sname like '%S'
+
+--EXERCISE 50
+-- SELECT Sname, Srank FROM StudentRecords ORDER BY Srank desc
+
+--EXERCISE 51
+--1. row_number = Ranking Function
+--2. pi() = Mathemathical Function
+--3. avg() = Aggregate Function
+--4. count() = Aggregate Function
+--5. datefiff() = Date Function
+--6. reverse() = String Function
+--7. ntile() =Ranking Function
