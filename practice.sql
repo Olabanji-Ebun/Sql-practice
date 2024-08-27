@@ -162,7 +162,7 @@ SELECT ProductID, StockedQty AS 'Availability of Products' FROM Purchasing.Purch
 SELECT ProductID, YEAR(StartDate) AS 'Previous Year Price', EndDate AS 'Current Year Price' FROM Production.ProductListPriceHistory WHERE ProductID = 715 ORDER BY [Previous Year Price];
 
 --EXERCISE 47
-SELECT ISNULL(FirstName, '') + ' ' +ISNULL(MiddleName, '')+ ' ' + ISNULL(LastName, '') AS 'Person Name' FROM Person.Contact
+SELECT ISNULL(FirstName + ' ', '') +ISNULL(MiddleName + ' ', '') + ISNULL(LastName, '') AS 'Person Name' FROM Person.Contact WHERE FirstName like 'S%'
 
 --EXERCISE 48
 -- SELECT Empid, Ename, Eproject FROM Employee WHERE Empid IN(2,4)
@@ -171,7 +171,7 @@ SELECT ISNULL(FirstName, '') + ' ' +ISNULL(MiddleName, '')+ ' ' + ISNULL(LastNam
 --SELECT Sname, Class FROM StudentDetail WHERE Sname like '%S'
 
 --EXERCISE 50
--- SELECT Sname, Srank FROM StudentRecords ORDER BY Srank desc
+-- SELECT Sname,  DENSE_RANK() OVER (ORDER BY Srank desc) FROM StudentRecords ORDER BY Srank desc
 
 --EXERCISE 51
 --1. row_number = Ranking Function
