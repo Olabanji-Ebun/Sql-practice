@@ -150,10 +150,14 @@ SELECT CostRate, LocationID,  NTILE(3) OVER (ORDER BY LocationID ) AS Grouped FR
 SELECT 'The list price of ' + Name + ' is' + CAST(ListPrice AS varchar(10))  FROM Production.Product WHERE ListPrice BETWEEN 360.00 AND 490.00 
 
 --EXERCISE 43
-SELECT ProductID, LineTotal AS 'Total' FROM Sales.SalesOrderDetail
+SELECT ProductID, SUM(LineTotal) AS 'Total' FROM Sales.SalesOrderDetail GROUP BY CUBE(ProductID)
 
 --EXERCISE 44
-SELECT SalesPersonID, SUM(SubTotal) AS SUM FROM Sales.SalesOrderHeader GROUP BY ROLLUP(SalesPersonID)
+SELECT SalesPersonID, SUM(Bonus) AS SUM FROM Sales.SalesPerson GROUP BY ROLLUP(SalesPersonID)
+
+SELECT * FROM Sales.SalesPerson
+
+SELECT * FROM Sales.SalesOrderHeader
 
 -- EXERCISE 45 Get back too
 SELECT ProductID, StockedQty AS 'Availability of Products' FROM Purchasing.PurchaseOrderDetail
