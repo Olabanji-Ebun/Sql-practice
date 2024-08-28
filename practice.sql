@@ -165,13 +165,13 @@ SELECT ProductID, YEAR(StartDate) AS 'Previous Year Price', EndDate AS 'Current 
 SELECT ISNULL(FirstName + ' ', '') +ISNULL(MiddleName + ' ', '') + ISNULL(LastName, '') AS 'Person Name' FROM Person.Contact WHERE FirstName like 'S%'
 
 --EXERCISE 48
--- SELECT Empid, Ename, Eproject FROM Employee WHERE Empid IN(2,4)
+ SELECT Empid, Ename, Eproject FROM Work.Employee WHERE Empid IN (2,4)
 
 --EXERCISE 49
---SELECT Sname, Class FROM StudentDetail WHERE Sname like '%S'
+SELECT Sname, Class FROM Student.StudentDetail Where Sname like 'S%'
 
 --EXERCISE 50
--- SELECT Sname,  DENSE_RANK() OVER (ORDER BY Srank desc) FROM StudentRecords ORDER BY Srank desc
+ SELECT  Sname,  DENSE_RANK() OVER (ORDER BY Smarks desc) AS Marks FROM Student.StudentRecords ORDER BY Smarks desc
 
 --EXERCISE 51
 --1. row_number = Ranking Function
